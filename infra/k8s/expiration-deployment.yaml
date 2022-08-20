@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: expiration 
-          image: furkanh/ecommerce-expiration
+          image: 190097/expiration
           env:
             - name: NATS_URL
               value: 'http://nats-service:4222'
@@ -26,3 +26,10 @@ spec:
                   fieldPath: metadata.name
             - name: REDIS_HOST
               value: expiration-redis-service
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"

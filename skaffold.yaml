@@ -8,7 +8,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: furkanh/ecommerce-auth
+    - image: 190097/auth
       context: auth 
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
-    - image: furkanh/ecommerce-client
+    - image: 190097/client
       context: client 
       docker:
         dockerfile: Dockerfile 
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: furkanh/ecommerce-products
+    - image: 190097/products
       context: products 
       docker:
         dockerfile: Dockerfile
@@ -32,7 +32,7 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
-    - image: furkanh/ecommerce-orders
+    - image: 190097/orders
       context: orders 
       docker:
         dockerfile: Dockerfile
@@ -40,7 +40,7 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
-    - image: furkanh/ecommerce-expiration
+    - image: 190097/expiration
       context: expiration 
       docker:
         dockerfile: Dockerfile
@@ -48,7 +48,7 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
-    - image: furkanh/ecommerce-payments
+    - image: 190097/payments
       context: payments 
       docker:
         dockerfile: Dockerfile

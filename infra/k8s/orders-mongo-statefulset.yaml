@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: orders-mongodb
+spec:
+  selector:
+    matchLabels:
+      app: orders-mongo
+  serviceName: "orders-mongo-service"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: orders-mongo
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mongo
+        image: mongo:3.6
+        args:
+          - --dbpath=/data/db
+          - --replSet=rs0
+          - --port=27017
+          - --bind_ip=0.0.0.0
+        command:
+        - mongod
+        ports:
+          - containerPort: 27017
+        volumeMounts:
+          - name: orders-mongo-persistent-storage
+            mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: orders-mongo-persistent-storage
+      spec:
+        storageClassName: "fast"
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 100Gi
+---
+apiVersion: v1 
+kind: Service
+metadata:
+  name: orders-mongo-service
+spec:
+  selector:
+    app: orders-mongo 
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+ name: fast
+provisioner: kubernetes.io/gce-pd
+parameters:
+ type: pd-ssd

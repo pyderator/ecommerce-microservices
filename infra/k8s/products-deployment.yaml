@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: products 
-          image: furkanh/ecommerce-products
+          image: 190097/products
           env:
             - name: MONGO_URI
               value: 'mongodb://products-mongo-service:27017/products'
@@ -31,6 +31,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service

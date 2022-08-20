@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: orders 
-          image: furkanh/ecommerce-orders
+          image: 190097/orders
           env:
             - name: MONGO_URI
-              value: 'mongodb://orders-mongo-service:27017/orders'
+              value: 'mongodb://mongo-0.mongo:27017/orders\_?'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -31,6 +31,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service

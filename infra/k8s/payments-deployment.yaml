@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payments 
-          image: furkanh/ecommerce-payments
+          image: 190097/payments
           env:
             - name: MONGO_URI
               value: 'mongodb://payments-mongo-service:27017/payments'
@@ -36,6 +36,13 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -50,3 +57,11 @@ spec:
       protocol: TCP
       port: 3000
       targetPort: 3000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: stripe-secret
+type: Opaque
+data:
+  STRIPE_KEY: cmFuZG9tc3RyaXBlc2VjcmV0Cg==

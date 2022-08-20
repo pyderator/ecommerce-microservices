@@ -15,6 +15,13 @@ spec:
       containers:
         - name: products-mongo
           image: mongo 
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
 ---
 apiVersion: v1 
 kind: Service

@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: client 
-          image: furkanh/ecommerce-client
+          image: 190097/client
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
 ---
 apiVersion: v1 
 kind: Service
